@@ -8,7 +8,7 @@ import bindRoutes from './routes.mjs';
 
 const io = new Server(3000, {
   cors: {
-    origin: ['http://localhost:3004', 'https://admin.socket.io'],
+    origin: ['http://localhost:3004', 'https://admin.socket.io', 'https://mysterious-garden-35921.herokuapp.com'],
   },
 });
 
