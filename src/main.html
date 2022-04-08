@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <title>PokébRAwl</title>
+    <link rel="icon" type="image/png" href="/logos/pokebRAwl_favicon.png" />
+  </head>
+  <body>
+    <div class="mt-2 ms-5">
+      <button class="btn btn-dark ms-2" id="musicButton">BG On/Off</button>
+      <audio id="audio" style="display: none" controls autoplay loop>
+        <source src="music/backgroundMusic.mp3" type="audio/mp3" />
+      </audio>
+    </div>
+    <div
+      class="container shadow-lg bg-light border border-5 border-dark my-2 mx-5 gameOuterBox"
+    >
+      <!-- login screen -->
+      <div id="loginScreen">
+        <div class="row mt-5">
+          <div class="col">
+            <img class="logo mx-auto d-block" src="logos/pokebRAwl_logo.png" />
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-5 mb-3">
+            <label for="loginEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="loginEmail" />
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-5 mb-3">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="loginPassword" />
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-5 mb-3">
+            <div id="loginError" class="text-danger"></div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-5 mb-3">
+            <button class="btn btn-danger" id="loginButton">Login</button>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-5 mb-3">
+            Not a user yet? Click <a href="#" id="register">here</a> to
+            register!
+          </div>
+        </div>
+      </div>
+      <!-- register screen -->
+      <div id="registerScreen" class="p-5">
+        <h1>Registration Form</h1>
+        <div class="row">
+          <div class="col">
+            <div class="row mt-3">
+              <div class="col-10">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="registerEmail" />
+              </div>
+            </div>
+            <row id="registerEmailError" class="text-danger"></row>
+            <div class="row">
+              <div class="col-10 my-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="registerPassword"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-10 mb-3">
+                <label for="displayName" class="form-label">Display Name</label>
+                <input type="text" class="form-control" id="displayName" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-10 mb-3">
+                <label for="registerSprite" class="form-label"
+                  >Chosen Sprite</label
+                >
+                <select
+                  class="form-select"
+                  id="registerSprite"
+                  name="registerSprite"
+                >
+                  <option selected value disabled>Choose your sprite</option>
+                  <option value="1">Boy 1</option>
+                  <option value="2">Boy 2</option>
+                  <option value="3">Boy 3</option>
+                  <option value="4">Boy 4</option>
+                  <option value="5">Girl 1</option>
+                  <option value="6">Girl 2</option>
+                  <option value="7">Girl 3</option>
+                  <option value="8">Girl 4</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-10 mb-3">
+                <button class="btn btn-danger" id="registerButton">
+                  Register
+                </button>
+                <button
+                  class="btn btn-secondary float-end"
+                  id="registerBackButton"
+                >
+                  ⇐ Back
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col d-flex justify-content-center align-items-center">
+            <div id="registerSpriteDisplay"></div>
+          </div>
+        </div>
+      </div>
+      <!-- lobby screen -->
+      <div id="lobbyScreen">
+        <div class="row justify-content-between pt-3 px-5">
+          <div class="col-3">
+            <div class="row mt-5">
+              <h1 class="col text-center" id="lobbyName"></h1>
+            </div>
+            <div class="row">
+              <div class="col text-center">
+                <img id="lobbySprite" />
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col text-center" id="lobbyStats"></div>
+            </div>
+            <div class="row mt-5">
+              <div class="col text-center">
+                <button class="btn btn-dark" id="lobbyLogOutButton">
+                  Log Out
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="row mt-2 px-5">
+              <div class="col d-flex align-items-end">
+                <button class="btn btn-success" id="lobbyPokedexButton">
+                  View Pokédex
+                </button>
+              </div>
+              <div class="col">
+                <img id="lobbyLogo" src=/logos/pokebRAwl_logo.png>
+              </div>
+              <div class="col d-flex align-items-end justify-content-end">
+                <button
+                  class="btn btn-danger float-end"
+                  id="lobbyCreateRoomButton"
+                >
+                  Create Game
+                </button>
+              </div>
+            </div>
+            <div
+              class="row overflow-auto m-3 p-3 border border-dark border-3 rounded"
+              id="gameListDiv"
+            >
+              <div class="col" id="gameList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- pokedex screen -->
+      <div id="pokedexScreen">
+        <div class="row">
+          <div class="col-4 mt-2 px-5 py-3">
+            <h1 class="ps-3">Pokédex Entries</h1>
+            <div id="pokedexList"></div>
+          </div>
+          <div class="col-7">
+            <div class="row">
+              <div class="col col-5 px-5 py-3">
+                <img id="pokedexLargeSprite" />
+              </div>
+              <div
+                class="col col-4 d-flex flex-column align-items-center justify-content-center"
+              >
+                <div class="row">
+                  <div class="col fs-3" id="pokedexName"></div>
+                </div>
+                <div class="row">
+                  <div class="col fs-3" id="pokedexType"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col" id="pokedexDescription"></div>
+            </div>
+            <div class="row mb-2">
+              <h2 id="pokedexMovesHeader"></h2>
+              <div class="col" id="pokedexMove1"></div>
+              <div class="col" id="pokedexMove2"></div>
+              <div class="col" id="pokedexMove3"></div>
+              <div class="col" id="pokedexMove4"></div>
+            </div>
+            <div class="row">
+              <div class="col" id="pokedexStats"></div>
+            </div>
+          </div>
+          <div class="col mt-2">
+            <button class="btn btn-secondary" id="pokedexBackButton">
+              ⇐ Back
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- room screen -->
+      <div id="roomScreen">
+        <div class="row mt-4">
+          <div class="col text-center">
+            <img id="lobbyLogo" src=/logos/pokebRAwl_logo.png>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <div
+                class="col text-center mt-3"
+                id="roomPrimaryDisplayName"
+              ></div>
+            </div>
+            <div class="row">
+              <div class="col text-center border-end border-secondary">
+                <img id="roomPrimarySprite" />
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row">
+              <div
+                class="col text-center mt-3"
+                id="roomSecondaryDisplayName"
+              ></div>
+            </div>
+            <div class="row">
+              <div class="col text-center">
+                <img id="roomSecondarySprite" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div
+            class="col-7 text-center fs-4 rounded border border-secondary"
+            id="roomConfirmationText"
+          >
+            Welcome to pokébRAwl, waiting for 2nd player...
+          </div>
+          <div class="col">
+            <button class="btn btn-danger" id="roomStartGame" disabled>
+              Start Game
+            </button>
+          </div>
+          <div class="col">
+            <button class="btn btn-secondary" id="roomBackButton">
+              ⇐ Back
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- loadout screen -->
+      <div id="loadoutScreen">
+        <div class="row mt-5">
+          <div class="col text-center">
+            <h2>Choose your Loadout (3 Pokémon)</h2>
+          </div>
+        </div>
+        <div class="row mt-3 mx-5">
+          <div class="col">
+            <button
+              class="btn btn-danger float-end"
+              id="loadoutConfirmButton"
+              disabled
+            >
+              Confirm Loadout
+            </button>
+          </div>
+        </div>
+        <div class="row mt-2" id="smallSpriteRow1"></div>
+        <div class="row mt-2" id="smallSpriteRow2"></div>
+        <div class="row mt-4 mx-5" id="loadoutLargeSpriteDisplay"></div>
+        <div class="row mt-2 justify-content-center">
+          <div
+            class="col-5 rounded text-center"
+            id="loadoutConfirmationText"
+          ></div>
+        </div>
+      </div>
+      <!-- battle screen -->
+      <div id="battleScreen">
+        <div class="row h-100">
+          <div
+            class="col-2 pb-5 bg-secondary border-end border-3 border-dark d-flex flex-column justify-content-end"
+          >
+            <div
+              id="battleUserDisplayName"
+              class="text-center fw-bold fs-4"
+            ></div>
+            <img id="battleUserSprite" />
+          </div>
+          <div class="col mh-100">
+            <div class="row h-25 mt-5 justify-content-end">
+              <div
+                class="col-5 d-flex flex-column justify-content-center pb-5"
+                id="battleOpponentPokemonStatus"
+              ></div>
+              <div class="col-5 text-center">
+                <img id="battleOpponentPokemonSprite" class="battleSprite" />
+              </div>
+            </div>
+            <div class="row h-25 mt-5">
+              <div class="col-5 text-center">
+                <img id="battleUserPokemonSprite" class="battleSprite" />
+              </div>
+              <div
+                class="col-5 d-flex flex-column justify-content-center"
+                id="battleUserPokemonStatus"
+              ></div>
+            </div>
+            <div
+              class="row border border-3 border-dark rounded"
+              id="battleActionBox"
+            >
+              <div class="col d-flex justify-content-center align-items-center">
+                <span class="fs-3">What will you do?</span>
+              </div>
+              <div
+                class="col border-start border-dark ps-5 d-flex flex-column justify-content-center"
+                id="battleButtons"
+              >
+                <div class="row py-2">
+                  <div class="col">
+                    <button
+                      class="btn btn-danger fs-4 battleButton"
+                      id="battleFightButton"
+                    >
+                      Fight
+                    </button>
+                  </div>
+                  <div class="col">
+                    <button
+                      class="btn btn-primary battleButton"
+                      id="battleItemsButton"
+                      disabled
+                    >
+                      Items<br />(Coming soon)
+                    </button>
+                  </div>
+                </div>
+                <div class="row py-2">
+                  <div class="col">
+                    <button
+                      class="btn btn-success fs-4 battleButton"
+                      id="battlePokemonButton"
+                    >
+                      Pokémon
+                    </button>
+                  </div>
+                  <div class="col">
+                    <button
+                      class="btn btn-warning fs-4 battleButton"
+                      id="battleSurrenderButton"
+                    >
+                      Surrender
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-2 pt-4 bg-secondary border-start border-3 border-dark d-flex flex-column justify-content-start"
+          >
+            <div
+              id="battleOpponentDisplayName"
+              class="text-center fw-bold fs-4"
+            ></div>
+            <img id="battleOpponentSprite" />
+          </div>
+        </div>
+      </div>
+      <!-- message screen -->
+      <div id="messageScreen"></div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

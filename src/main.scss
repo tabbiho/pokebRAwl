@@ -1,0 +1,146 @@
+body {
+  background-color: #e0a890;
+}
+
+.gameOuterBox {
+  border-radius: 10px;
+  min-height: 650px;
+  min-width: 1300px;
+}
+
+.logo {
+  width: auto;
+  max-height: 70%;
+}
+
+#loginScreen {
+  display: none;
+}
+
+#registerScreen {
+  display: none;
+}
+
+.enlargeSprite {
+  height: 350px;
+}
+
+#pokedexScreen {
+  display: none;
+}
+
+.pokedexList {
+  border-radius: 10px;
+  padding: 2px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.smallSprite {
+  width: 20%;
+  height: auto;
+}
+
+#pokedexLargeSprite {
+  height: 250px;
+}
+
+#gameListDiv {
+  height: 60vh;
+}
+
+#lobbyLogo {
+  height: 110px;
+}
+
+#lobbyScreen {
+  display: none;
+}
+
+#roomConfirmationText {
+  margin: 0 120px;
+}
+
+#roomScreen {
+  display: none;
+}
+
+#loadoutScreen {
+  display: none;
+}
+
+.smallSpriteButton {
+  height: 50px;
+  width: 50px;
+  padding: 0;
+}
+
+.smallSpriteLoadout {
+  width: 90%;
+}
+
+#smallSpriteRow1,
+#smallSpriteRow2 {
+  margin: 0 35%;
+}
+
+#loadoutLargeSpriteDisplay {
+  height: 300px;
+}
+
+.loadoutPickedImg {
+  height: 70%;
+}
+
+#battleScreen {
+  display: none;
+  height: 660px;
+}
+
+.battleSprite {
+  height: 95%;
+}
+
+#battleActionBox {
+  margin-top: 8%;
+  height: 170px;
+}
+
+.overlaySmallMessage {
+  position: absolute;
+  top: 556px;
+  left: 705px;
+  height: 163px;
+  width: 420px;
+  background-color: #fbfbfb;
+  border-radius: 3px;
+}
+
+.overlayLargeMessage {
+  position: absolute;
+  top: 556px;
+  left: 290px;
+  height: 162px;
+  width: 846px;
+  background-color: #fbfbfb;
+  border-radius: 3px;
+}
+
+.battleButton {
+  width: 150px;
+  height: 60px;
+}
+
+.pokemonSwapSpriteDiv {
+  height: 140px;
+  width: 140px;
+}
+
+.pokemonSwapSprite {
+  height: 80px;
+}
+
+.remainingPokemon {
+  height: 20px;
+  margin: 3px;
+}
