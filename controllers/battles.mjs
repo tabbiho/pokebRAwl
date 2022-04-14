@@ -103,7 +103,6 @@ export default function initBattlesController(db) {
     let typeMultiplier = 1;
     let criticalHit = 0;
 
-    // Calculate Atk/Def || S.Atk/S.Def
     let ratioAD = 0;
     if (attackingMove.moveCategory === 'Physical') {
       ratioAD = attackingPokemon.attack / defendingPokemon.defense;
@@ -111,12 +110,10 @@ export default function initBattlesController(db) {
       ratioAD = attackingPokemon.spAttack / defendingPokemon.spDefense;
     }
 
-    // Calculate Accuracy
     const accuracyHit = randomChance(attackingMove.accuracy);
     if (!accuracyHit) {
       messages.push('It missed!');
     } else {
-      // Calculate Type Effectiveness
       const typeEffectiveness = await db.Type.findOne({
         where: {
           typeName: attackingMove.moveType,
@@ -145,7 +142,6 @@ export default function initBattlesController(db) {
         }
       }
 
-      // Calculate Crit
       const criticalChance = randomChance(5);
       if (criticalChance === 1) {
         criticalHit = 1.5;
@@ -194,11 +190,9 @@ export default function initBattlesController(db) {
       const userActions = [primaryAction, secondaryAction];
       const playerGameStates = [gameState[primaryUser], gameState[secondaryUser]];
 
-      // reset waitingForResponse
       gameState[primaryUser].waitingForResponse = false;
       gameState[secondaryUser].waitingForResponse = false;
 
-      // Pokemon swap first
       for (let i = 0; i < userActions.length; i += 1) {
         if (userActions[i] === 'pokemon') {
           const { fromPokemon, toPokemon } = playerGameStates[i].response;
@@ -210,7 +204,6 @@ export default function initBattlesController(db) {
       const primaryActivePokemon = playerGameStates[0].pokemon[playerGameStates[0].activePokemonIndex];
       const secondaryActivePokemon = playerGameStates[1].pokemon[playerGameStates[1].activePokemonIndex];
 
-      // Pokemon fight next
       if (userActions[0] === 'fight' && userActions[1] === 'fight') {
         const primaryPokemon = gameState[primaryUser].response.pokemonData;
         const primaryMove = gameState[primaryUser].response.moveId;

@@ -6,6 +6,7 @@ import io from 'socket.io-client';
 
 const socket = io('http://localhost:3000');
 
+// Audio
 const musicButton = document.getElementById('musicButton');
 const audio = document.getElementById('audio');
 audio.volume = 0.03;
@@ -305,6 +306,8 @@ const pokemonMessageOverlay = async () => {
   messageScreen.prepend(pokemonDiv);
 };
 
+battlePokemonButton.addEventListener('click', pokemonMessageOverlay);
+
 const winnerMessageOverlay = (winner) => {
   const div = document.createElement('div');
   div.classList.add('overlayLargeMessage', 'fs-1', 'fw-bold', 'pt-4', 'text-center');
@@ -448,10 +451,6 @@ const populateRoom = async () => {
   }
 };
 
-socket.on('enableStartButton', async () => {
-  populateRoom();
-});
-
 const populateLobbyScreen = async () => {
   const user = await axios.get('/users/getInfo');
   const {
@@ -507,8 +506,6 @@ const populateLobbyScreen = async () => {
     });
   }
 };
-
-// === DOM MANIPULATION BELOW ===
 
 registerLink.addEventListener('click', () => {
   loginScreen.style.display = 'none';
@@ -646,14 +643,6 @@ lobbyCreateRoomButton.addEventListener('click', async () => {
   populateRoom();
 });
 
-socket.on('refreshRoom', () => {
-  populateRoom();
-});
-
-socket.on('update-game-list', () => {
-  populateLobbyScreen();
-});
-
 roomStartGame.addEventListener('click', async () => {
   clickAudio.play();
   roomStartGame.disabled = true;
@@ -757,11 +746,6 @@ const populateLoadoutPokemonButtons = async () => {
   }
 };
 
-socket.on('room-ready', () => {
-  advanceToLoadout();
-  populateLoadoutPokemonButtons();
-});
-
 loadoutConfirmButton.addEventListener('click', async () => {
   clickAudio.play();
   if (selectedLoadout.length === 3) {
@@ -793,10 +777,6 @@ const advanceToBattle = () => {
   battleScreen.style.display = 'block';
   populateBattleScreen();
 };
-
-socket.on('loadout-ready', () => {
-  advanceToBattle();
-});
 
 const surrenderConfirmAction = async () => {
   clickAudio.play();
@@ -838,8 +818,6 @@ const surrenderMessageOverlay = () => {
 
 battleSurrenderButton.addEventListener('click', surrenderMessageOverlay);
 
-// tabulateRound();
-
 const fightConfirmAction = async (moveId, pokemonData) => {
   const room = await roomCheck();
   const { id } = room.data;
@@ -849,14 +827,6 @@ const fightConfirmAction = async (moveId, pokemonData) => {
     socket.emit('advance-inner-gamestate', id);
   }
 };
-
-socket.on('advance-inner-gamestate', () => {
-  const waitingForResponseMessage = document.getElementById('waitingForAction');
-  if (waitingForResponseMessage) {
-    waitingForResponseMessage.remove();
-  }
-  populateBattleScreen();
-});
 
 const fightMessageOverlay = async () => {
   clickAudio.play();
@@ -1019,7 +989,6 @@ const fightMessageOverlay = async () => {
 
 battleFightButton.addEventListener('click', fightMessageOverlay);
 
-// === LOGIN CHECK ===
 const loginCheck = async () => {
   const result = await axios.get('/users/loginCheck');
   if (result.data) {
@@ -1096,8 +1065,36 @@ roomBackButton.addEventListener('click', async () => {
   socket.emit('join-lobby');
 });
 
+// Socket.io components
+socket.on('enableStartButton', async () => {
+  populateRoom();
+});
+
+socket.on('refreshRoom', () => {
+  populateRoom();
+});
+
+socket.on('update-game-list', () => {
+  populateLobbyScreen();
+});
+
+socket.on('room-ready', () => {
+  advanceToLoadout();
+  populateLoadoutPokemonButtons();
+});
+
+socket.on('loadout-ready', () => {
+  advanceToBattle();
+});
+
+socket.on('advance-inner-gamestate', () => {
+  const waitingForResponseMessage = document.getElementById('waitingForAction');
+  if (waitingForResponseMessage) {
+    waitingForResponseMessage.remove();
+  }
+  populateBattleScreen();
+});
+
 socket.on('refreshGame', () => {
   loginCheck();
 });
-
-battlePokemonButton.addEventListener('click', pokemonMessageOverlay);
