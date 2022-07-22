@@ -46,7 +46,7 @@ For the project to run locally on your machine:
 ## Built with
 
 #### Frontend
-- Socket.io
+- Socket.IO
 - Axios
 - HTML & CSS
 
