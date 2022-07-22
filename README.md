@@ -6,11 +6,14 @@ pokébRAwl is a simple replica of Pokémon 5-min battles featuring casual playst
 
 ## Installation 
 For the project to run locally on your machine: 
-1. <code>npm install</code> to install necessary packages
-2. <code>npm run start</code> to run the app locally 
-3. Open browser and view the project on http://localhost:3004
+1. <code>npm install</code> to install packages required
+2. <code>npx sequelize db:create</code> to create your local database
+3. <code>npx sequelize db:migrate</code> to run migrations for database schema
+4. <code>npx sequelize db:seed:all</code> to seed the game data required
+5. <code>npm run start</code> to run the app locally
+6. Open your browser and view the project on http://localhost:3004
 
-> **Note: 2-player functionality is only available for pokébRAwl clients run locally on the same system.**
+> **Note: 2-player functionality is only available for clients run locally on the same system. Run your 2nd client on incognito mode.**
 
 ## Demo
 
